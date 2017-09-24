@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 import xlrd
 
@@ -20,9 +21,11 @@ class UIdriver:
         if str(self.BrName).lower() == 'chrome':
             self.browser = webdriver.Chrome()
         elif self.BrName.lower() == 'ie':
-            self.browser = webdriver.Ie
+            capabilities = DesiredCapabilities.INTERNETEXPLORER
+            capabilities['acceptSslCerts'] = True
+            self.browser = webdriver.Ie("C:\\Users\\RAJULAPATI\\AppData\\Local\\Programs\\Python\\Python35-32\\Scripts\\IEDriverServer.exe")
         else:
-            self.browser = webdriver.Firefox
+            self.browser = webdriver.Firefox()
         self.browser.maximize_window()
         return self.browser
 
@@ -41,10 +44,11 @@ class UIdriver:
         Locatorval = objArr.__getitem__(2)
 
         for Lpc in range(1, 60, 1):
+            print("Waiting for the Object " + strPageName + "." + strObjectName)
             try:
                 elem = self.Get_UIObject(driver,Locator,Locatorval)
                 if elem is not None:
-                    print("element Found")
+                    print(strPageName + "." + strObjectName + " object Found")
                     break
             except:
                 print("Please wait element Not Found")
@@ -53,43 +57,35 @@ class UIdriver:
     def Get_UIObject(self,driver,Locator,Locatorvalue):
         Locator = str(Locator)
         Element = ""
-        if Locator.lower() == 'id':
-            Element = driver.find_element_by_id(Locatorvalue)
-        elif Locator.lower() == 'name':
-            Element = driver.find_element_by_name(Locatorvalue)
-        elif Locator.lower()== 'css':
-            Element = driver.find_element_by_css_selector(Locatorvalue)
-        elif Locator.lower()=='Linktext':
-            Element=driver.find_element_by_link_text(Locatorvalue)
-        elif Locator.lower()=='xpath':
-            Element = driver.find_element_by_xpath(Locatorvalue)
-        return Element
+        try:
+            if Locator.lower() == 'id':
+                Element = driver.find_element_by_id(Locatorvalue)
+            elif Locator.lower() == 'name':
+                Element = driver.find_element_by_name(Locatorvalue)
+            elif Locator.lower()== 'css':
+                Element = driver.find_element_by_css_selector(Locatorvalue)
+            elif Locator.lower()=='Linktext':
+                Element=driver.find_element_by_link_text(Locatorvalue)
+            elif Locator.lower()=='xpath':
+                Element = driver.find_element_by_xpath(Locatorvalue)
+            return Element
+        except:
+            print("unable to find the Locator : "+ Locatorvalue)
 
-    # def ClickObject(self,driver,pagename,objName):
-    #     objType = str(objType)
-    #     if objType.lower() == "editfield":
-    #         elem = self.Get_UIObject(driver,Locator,Locatorval)
-    #         if elem.is_displayed:
-    #             elem.send_keys(fval)
-    #             print(objName + "value is entered as " + fval)
-    #         else:
-    #             print(objName + " element not displayed")
-    #     elif objType.lower() == "dropdown":
-    #         elem = Get_UIObject(driver, Locator, Locatorval)
-    #         if elem.is_displayed:
-    #             selectoption = Select(elem)
-    #             selectoption.select_by_visible_text(fval)
-    #             print(objName + "value is selected as " + fval)
-    #         else:
-    #             print(objName + "element not displayed")
-    #     elif objType.lower() == "chkbox":
-    #         elem = Get_UIObject(driver, Locator, Locatorval)
-    #         if elem.is_displayed:
-    #             elem.click()
-    #             print(objName + "check box is selected")
-    #         else:
-    #             print(objName + "element not displayed")
-    #
+    def ClickObject(self,driver,pagename,objName):
+        objArr = []
+        objArr = self.Get_Object_ObjectRepository(pagename,objName)
+        objType = objArr.__getitem__(0)
+        Locator = objArr.__getitem__(1)
+        Locatorval = objArr.__getitem__(2)
+        elem = self.Get_UIObject(driver,Locator,Locatorval)
+
+        if elem is not None:
+            elem.click()
+            print("Clicked on the Object : " + pagename + "." + objName)
+        else:
+            print("element not found please check the object description")
+
 
     def Switch_window(self,driver):
         main_window_handle = driver.current_window_handle
@@ -131,8 +127,8 @@ class UIdriver:
         try:
             oWB = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\Actitime objects.xls")
             oSheet = oWB.sheet_by_name("ObjectRepository")
-            c1 = self.GetxlColumnNumber(oSheet, "PageName")
-            c2 = self.GetxlColumnNumber(oSheet, "ObjectName")
+            #c1 = self.GetxlColumnNumber(oSheet, "PageName")
+            #c2 = self.GetxlColumnNumber(oSheet, "ObjectName")
             #r1 = GetxlRowNumber(oSheet, "PageName", strPageName)
             #r2 = GetxlRowNumber(oSheet, "ObjectName", strObjectName)
             r = self.GetxlRowNumberbytwocolvals(oSheet, "PageName", strPageName, "ObjectName", strObjectName)
