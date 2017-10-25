@@ -4,7 +4,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 import xlrd
-
+import os
 
 
 class UIdriver:
@@ -12,11 +12,23 @@ class UIdriver:
     # Common utility functions for python selenium
     # Get the Browser driver
 
-    def __init__(self,brname,UN,Pwd,url):
-        self.BrName = brname
-        self.username = UN
-        self.password = Pwd
-        self.url = url
+    def __init__(self):
+
+        oWB = xlrd.open_workbook("E:\\actitimeAutomation\\TestData\\MasterData.xls")
+        oSheet = oWB.sheet_by_name("MasterData")
+        URL = self.GetxlColumnNumber(oSheet, "URL")
+        BR = self.GetxlColumnNumber(oSheet, "Browser")
+        UN = self.GetxlColumnNumber(oSheet, "UserName")
+        PWD = self.GetxlColumnNumber(oSheet, "Password")
+
+        # self.BrName = brname
+        # self.username = UN
+        # self.password = Pwd
+        # self.url = url
+        self.BrName = str(oSheet.cell(1,BR).value)
+        self.username = str(oSheet.cell(1,UN).value)
+        self.password = str(oSheet.cell(1,PWD).value)
+        self.url = str(oSheet.cell(1,URL).value)
 
     def Get_Browser(self):
 
