@@ -28,23 +28,33 @@ obj=TestSuiteDriver()
 
 for i in range(1,nooftcs):
     TCID = oTestsuite.cell(i,0).value
-    BSID = oTestsuite.cell(i,1).value
+    TDID = oTestsuite.cell(i,1).value
     TCName = oTestsuite.cell(i,2).value
 
     tobeexecute = oTestsuite.cell(i,3).value
     if str(tobeexecute).lower() == "y":
         #exec ("obj = " + TCName + "()")
         print("Running the Test case : " + TCName)
-        reqrow = oui.GetxlRowNumberbytwocolvals(oBusinessFlow,"TC_ID",TCID,"BS_ID",BSID)
+        obj.Create_HTML_Report(TCName)
+        print(obj.Reportfile)
+        print(obj.screenshotfolder)
+        reqrow = oui.GetxlRowNumberbytwocolvals(oBusinessFlow,"TC_ID",TCID,"TD_ID",TDID)
         noofsteps = oBusinessFlow.ncols
+        DatasheetName = oBusinessFlow.cell(reqrow,2).value
         for j in range(3,noofsteps):
             Keyword = oBusinessFlow.cell(reqrow,j).value
+            temp = Keyword
             if not Keyword == "end":
                 print("running Keyword : " + Keyword)
-                Keyword = Keyword + "(" + chr(34)+TCName+chr(34) + "," + chr(34) + TCID + chr(34) + "," + chr(34) + BSID + chr(34) +" )"
+                Keyword = Keyword + "(" + chr(34)+DatasheetName+chr(34) + "," + chr(34) + TCID + chr(34) + "," + chr(34) + TDID + chr(34) +" )"
                 #keyword = "%s%s%s%s" %(Keyword ,"(",oDataset,")")
-                exec ("obj." + Keyword)
+                if eval ("obj." + Keyword):
+                    print(temp + " Keyword Passed")
+                else:
+                    print(temp+" Keyword Failed hence Quitting the current test execution")
+                    break
             elif Keyword == "end":
                 print("end of the test")
                 obj.browser.quit()
                 break
+
