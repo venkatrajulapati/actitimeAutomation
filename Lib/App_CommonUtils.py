@@ -45,7 +45,7 @@ class App_Common_utils(UIdriver):
                     it = oDataset.cell(reqrow,customercol).value
                     self.SetFieldValue(self.browser, "CreateNewTask", "lst_Customer", it)
                     time.sleep(4)
-                    self.Switch_window(self.browser)
+                    #self.Switch_window(self.browser)
                     return True
                 else:
                     print("Failed to Load Create New Task Popup window")
@@ -60,7 +60,7 @@ class App_Common_utils(UIdriver):
 
     def Logout(self,odata,TCID,BSID):
         try:
-
+            self.Switch_window(self.browser)
             self.ClickObject(self.browser,"Home","lnk_Logout")
 
             if self.App_Sync(self.browser,"Login","edt_User Name"):

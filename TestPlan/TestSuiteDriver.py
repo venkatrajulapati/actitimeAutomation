@@ -35,12 +35,13 @@ for i in range(1,nooftcs):
     if str(tobeexecute).lower() == "y":
         #exec ("obj = " + TCName + "()")
         print("Running the Test case : " + TCName)
-        obj.Create_HTML_Report(TCName)
-        print(obj.Reportfile)
-        print(obj.screenshotfolder)
+        f = obj.Create_HTML_Report(TCName)
+        reppath = obj.Reportfile
+        screenshotpath = obj.screenshotfolder
         reqrow = oui.GetxlRowNumberbytwocolvals(oBusinessFlow,"TC_ID",TCID,"TD_ID",TDID)
         noofsteps = oBusinessFlow.ncols
         DatasheetName = oBusinessFlow.cell(reqrow,2).value
+        screenshotcount=0
         for j in range(3,noofsteps):
             Keyword = oBusinessFlow.cell(reqrow,j).value
             temp = Keyword
@@ -50,11 +51,16 @@ for i in range(1,nooftcs):
                 #keyword = "%s%s%s%s" %(Keyword ,"(",oDataset,")")
                 if eval ("obj." + Keyword):
                     print(temp + " Keyword Passed")
+                    screenshotcount = screenshotcount + 1
+                    obj.fn_HtmlReport_TestStep(f,screenshotpath,screenshotcount,"running Step : " + str(temp),str(temp) + " Should be Passed",str(temp) + " is Passed","PASS")
                 else:
                     print(temp+" Keyword Failed hence Quitting the current test execution")
+                    obj.fn_HtmlReport_TestStep(reppath, screenshotpath, screenshotcount, "running Step : " + str(temp),str(temp) + " Should be Passed", str(temp) + " is Failed", "FAIL")
                     break
             elif Keyword == "end":
                 print("end of the test")
                 obj.browser.quit()
+                f.close()
                 break
+
 

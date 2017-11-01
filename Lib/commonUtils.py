@@ -10,7 +10,7 @@ from datetime import datetime
 import sys
 
 
-class UIdriver:
+class UIdriver(object):
 
     # Common utility functions for python selenium
     # Get the Browser driver
@@ -33,7 +33,7 @@ class UIdriver:
         self.password = str(oSheet.cell(1,PWD).value)
         self.url = str(oSheet.cell(1,URL).value)
         self.Rootpath = str(oSheet.cell(1,Rootpath).value)
-        self.gbl_intScreenCount = 0
+        #self.gbl_intScreenCount = 0
         self.Reportfile = ""
         self.screenshotfolder = ""
     def Get_Browser(self):
@@ -214,18 +214,8 @@ class UIdriver:
                 print(strObjectName + "element not displayed")
 
     def Create_HTML_Report(self,TCName):
-        gbl_blnResult = ""
-        g_iPass_Count = 0
-        g_iFail_Count = 0
-        g_iScenario_Pass_Count = 0
-        g_iScenario_Fail_Count = 0
-        g_tStart_Time = datetime.now()
 
-        ioMode_ForWriting = 2
-        gbl_intScreenCount = 0
-        g_iImage_Capture = 1
-        RunMode = "Server"
-        BlnFailStatue = False
+        g_tStart_Time = datetime.now()
 
         # Name of Report-folders and Report-File-Name for this Run
         arrStartTime = str(g_tStart_Time).split(" ")
@@ -251,12 +241,13 @@ class UIdriver:
 
         Reportfile = Rp + "Results\\" + TCName + "_" + strname + ".html"
         screenshotfolder = Rp + "Results\\" + TCName + "_" + strname
+
         self.Reportfile = Reportfile
         self.screenshotfolder = screenshotfolder
         if not os.path.exists(screenshotfolder):
             os.mkdir(screenshotfolder)
 
-        resfile = open(Reportfile, "w")
+        resfile = open(Reportfile, "a")
         # Write header
         resfile.write("<HTML><BODY><TABLE BORDER=1 CELLPADDING=3 CELLSPACING=1 WIDTH=100%>")
         Test_Automation_Test_Report_Logo = Rp + "Logo.png"
@@ -284,6 +275,50 @@ class UIdriver:
                       "<TH ALIGN=MIDDLE BGCOLOR=#FFCC99 WIDTH=30%><FONT FACE=VERDANA COLOR=BLACK SIZE=2><B>Actual Result</B></FONT></TD>" \
                       "<TH ALIGN=MIDDLE BGCOLOR=#FFCC99   WIDTH=7%><FONT FACE=VERDANA COLOR=BLACK SIZE=2><B>Step-Result</B></FONT></TD>" \
                       "</TR>")
-        resfile.close()
+        return resfile
+        #resfile.close()
+
+
+
+    def fn_HtmlReport_TestStep(self,strRepfilepath,strScreenshotfolder,gbl_intScreenCount,strDesc, strExpected, strActual, strResult):
+
+        #***** Set Result parameters
+        if str(strResult).upper() == "PASS":
+            strResultColor = "GREEN"
+            strResultSign = "P"
+            blnCaptureImsge = True
+        elif str(strResult).upper() == "FAIL":
+            strResultColor = "RED"
+            strResultSign = "O"
+            blnCaptureImsge = True
+        else:
+            blnCaptureImsge = False
+            strResultColor = "GREEN"
+            strResultSign = "P"
+            strActualHREF = strActual
+        #Set Image Path and capture image
+        if (blnCaptureImsge == True):
+            #gbl_intScreenCount = gbl_intScreenCount + 1
+            #Capture Image
+            strImagePath = strScreenshotfolder + "\\Screen_000" + str(gbl_intScreenCount) + ".png"
+            self.browser.get_screenshot_as_file(strImagePath)
+            strActualHREF = "<A HREF='" + strImagePath + "'>" + strActual + "</A>"
+
+        elif blnCaptureImsge == "False":
+            strActualHREF = "<A>" + strActual + "</A>"
+        #Update HTML Report
+        if not strExpected is None:
+            strRepfilepath.write("<TR COLS=4>"\
+            "<TD BGCOLOR=#EEEEEE WIDTH=20%><FONT FACE=VERDANA SIZE=2>" + strDesc + "</FONT></TD>"\
+            "<TD BGCOLOR=#EEEEEE WIDTH=30%><FONT FACE=VERDANA SIZE=2>" + strExpected + "</FONT></TD>"\
+            "<TD BGCOLOR=#EEEEEE WIDTH=30%><FONT FACE=WINGDINGS SIZE=4>2</FONT><FONT FACE=VERDANA SIZE=2>" + strActualHREF + "</FONT></TD>"\
+            "<TD ALIGN=MIDDLE BGCOLOR=#EEEEEE WIDTH=7%><FONT FACE='WINGDINGS 2' SIZE=5 COLOR=" + strResultColor + ">" + strResultSign + "</FONT><FONT FACE=VERDANA SIZE=2 COLOR=" + strResultColor + "><B>" + strResult + "</B></FONT></TD>"\
+            "</TR>")
+        if strExpected is None:
+            strRepfilepath.write("<TR COLS=4>"\
+            "<TD BGCOLOR=#EEEEEE WIDTH=20%><FONT FACE=VERDANA SIZE=5 COLOR=GREEN>" + strDesc + "</FONT></TD>"\
+            "</TR>")
+
+
 
 

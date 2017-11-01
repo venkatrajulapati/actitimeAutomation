@@ -79,3 +79,57 @@ resfile.close()
 # Results
 # "
 # gbl_RepFolder = ReportFolder
+
+
+def fn_HtmlReport_TestStep(strRepfilepath,strScreenshotfolder,gbl_intScreenCount,strDesc, strExpected, strActual, strResult):
+
+    #***** Set Result parameters
+    if str(strResult).upper() == "PASS":
+        strResultColor = "GREEN"
+        strResultSign = "P"
+        blnCaptureImsge = True
+
+    elif str(strResult).upper() == "FAIL":
+        strResultColor = "RED"
+        strResultSign = "O"
+        blnCaptureImsge = True
+
+    else:
+        blnCaptureImsge = False
+        strResultColor = "GREEN"
+        strResultSign = "P"
+        strActualHREF = strActual
+
+    #***** Set Image Path and capture image
+    if (blnCaptureImsge == True):
+        gbl_intScreenCount = gbl_intScreenCount + 1
+        #Capture Image
+        strImagePath = strScreenshotfolder & "\\Screen_000" + str(gbl_intScreenCount, 3) & ".png"
+        self.browser.get_screenshot_as_file(strImagePath)
+        strActualHREF = "<A HREF='" & strImagePath & "'>" & strActual & "</A>"
+
+    elif blnCaptureImsge == "False":
+        strActualHREF = "<A>" & strActual & "</A>"
+
+    #***** Open HTML Report file
+        objReport = open(strRepfilepath,'a')
+
+    #***** Update HTML Report
+
+    if not strExpected is None:
+        objReport.write(
+        "<TR COLS=4>"\
+        "<TD BGCOLOR=#EEEEEE WIDTH=20%><FONT FACE=VERDANA SIZE=2>" & strDesc & "</FONT></TD>"\
+        "<TD BGCOLOR=#EEEEEE WIDTH=30%><FONT FACE=VERDANA SIZE=2>" & strExpected & "</FONT></TD>"\
+        "<TD BGCOLOR=#EEEEEE WIDTH=30%><FONT FACE=WINGDINGS SIZE=4>2</FONT><FONT FACE=VERDANA SIZE=2>" & strActualHREF & "</FONT></TD>"\
+        "<TD ALIGN=MIDDLE BGCOLOR=#EEEEEE WIDTH=7%><FONT FACE='WINGDINGS 2' SIZE=5 COLOR=" & strResultColor & ">" & strResultSign & "</FONT><FONT FACE=VERDANA SIZE=2 COLOR=" & strResultColor & "><B>" & strResult & "</B></FONT></TD>"\
+        "</TR>")
+    if strExpected is None:
+        objReport.write(
+        "<TR COLS=4>"\
+        "<TD BGCOLOR=#EEEEEE WIDTH=20%><FONT FACE=VERDANA SIZE=5 COLOR=GREEN>" & strDesc & "</FONT></TD>"\
+        "</TR>")
+
+    objReport.Close
+
+
