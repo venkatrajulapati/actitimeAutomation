@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f8e9aa6-dced-413f-8f80-e7810ba3fa4a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestSuite.xls" afterPath="$PROJECT_DIR$/TestSuite.xls" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lib/App_CommonUtils.py" afterPath="$PROJECT_DIR$/Lib/App_CommonUtils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lib/commonUtils.py" afterPath="$PROJECT_DIR$/Lib/commonUtils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lib/reporter.py" afterPath="$PROJECT_DIR$/Lib/reporter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestPlan/TestSuiteDriver.py" afterPath="$PROJECT_DIR$/TestPlan/TestSuiteDriver.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
