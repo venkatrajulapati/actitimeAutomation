@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import urllib.request
 from Lib.commonUtils import *
 from Lib.App_CommonUtils import *
 import time
@@ -17,7 +19,7 @@ class TestSuiteDriver(App_Common_utils):
 
 # Connect to the Test test case repository
 
-oWb = xlrd.open_workbook("E:\\actitimeAutomation\\TestSuite.xls")
+oWb = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\TestSuite.xls")
 oTestsuite = oWb.sheet_by_name("TestSuite")
 oBusinessFlow = oWb.sheet_by_name("BusinessFlow")
 nooftcs = oTestsuite.nrows
@@ -55,7 +57,8 @@ for i in range(1,nooftcs):
                     obj.fn_HtmlReport_TestStep(f,screenshotpath,screenshotcount,"running Step : " + str(temp),str(temp) + " Should be Passed",str(temp) + " is Passed","PASS")
                 else:
                     print(temp+" Keyword Failed hence Quitting the current test execution")
-                    obj.fn_HtmlReport_TestStep(reppath, screenshotpath, screenshotcount, "running Step : " + str(temp),str(temp) + " Should be Passed", str(temp) + " is Failed", "FAIL")
+                    obj.fn_HtmlReport_TestStep(f, screenshotpath, screenshotcount, "running Step : " + str(temp),str(temp) + " Should be Passed", str(temp) + " is Failed", "FAIL")
+                    obj.browser.quit()
                     break
             elif Keyword == "end":
                 print("end of the test")

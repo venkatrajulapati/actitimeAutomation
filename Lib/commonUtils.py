@@ -2,7 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import urllib
+from selenium.webdriver.common.action_chains import ActionChains
+import urllib.request
 import time
 import xlrd
 import os
@@ -42,17 +43,14 @@ class UIdriver(object):
             self.browser = webdriver.Chrome()
         elif self.BrName.lower() == 'ie':
             capabilities = DesiredCapabilities.INTERNETEXPLORER
+            capabilities.pop('platform',None)
+            capabilities.pop('version',None)
 
-
-            capabilities["ignoreProtectedModeSettings"] = True
-
-
-            capabilities["ignoreZoomSetting"] = True
-            urllib.getproxies = lambda: {}
-
-
-            self.browser = webdriver.Ie(capabilities=capabilities,
-                                   executable_path="C:\\Users\\RAJULAPATI\\AppData\\Local\\Programs\\Python\\Python35-32\\Scripts\\IEDriverServer.exe")
+            #capabilities['ignoreProtectedModeSettings'] = True
+            #capabilities['ignoreZoomSetting'] = True
+            #capabilities["requireWindowFocus"] = True
+            urllib.request.getproxies = lambda: {}
+            self.browser = webdriver.Ie(capabilities=capabilities)
 
 
         else:
@@ -65,6 +63,27 @@ class UIdriver(object):
     def Launch_Application(self,driver):
 
         driver.get(self.url)
+    # Verify Page load status
+    def wait_pageload(self,driver,strPageName,strObjectName):
+
+        objArr = []
+        objArr = self.Get_Object_ObjectRepository(strPageName, strObjectName)
+        objType = objArr.__getitem__(0)
+        Locator = objArr.__getitem__(1)
+        Locatorval = objArr.__getitem__(2)
+
+        page_status = driver.execute_script('return document.readyState')
+
+        while str(page_status) != 'complete':
+            page_status = driver.execute_script('return document.readyState')
+
+        print(page_status)
+
+        # try:
+        #     myElem = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, Locatorval)))
+        #     print("Page is ready!")
+        # except TimeoutException:
+        #     print("Loading took too much time!")
 
     def App_Sync(self,driver,strPageName,strObjectName):
 
@@ -83,7 +102,11 @@ class UIdriver(object):
                     break
             except:
                 print("Please wait element Not Found")
-        return True
+        if elem is not None:
+            return True
+        else:
+            return False
+
 
     def Get_UIObject(self,driver,Locator,Locatorvalue):
         Locator = str(Locator)
@@ -112,10 +135,34 @@ class UIdriver(object):
         elem = self.Get_UIObject(driver,Locator,Locatorval)
 
         if elem is not None:
+            # actions = webdriver.ActionChains(datetime)
+            # actions.move_to_element(elem)
+            # actions.click(elem)
+            # actions.perform()
             elem.click()
             print("Clicked on the Object : " + pagename + "." + objName)
         else:
             print("element not found please check the object description")
+
+    def Switch_frame(self,driver,strPageName,strObjectName):
+        objArr = self.Get_Object_ObjectRepository(strPageName, strObjectName)
+        objType = objArr.__getitem__(0)
+        Locator = objArr.__getitem__(1)
+        Locatorval = objArr.__getitem__(2)
+        try:
+            elem = self.Get_UIObject(driver,Locator,Locatorval)
+            driver.switch_to.frame(elem)
+            print('Successfully switched to the Frame')
+        except:
+            print('Failed to switched to the Frame')
+
+    def Switch_defaultframe(self,driver):
+
+        try:
+            driver.switch_to.default_content()
+            print('Successfully switched to the default Frame')
+        except:
+            print('Failed to switched to default Frame')
 
 
     def Switch_window(self,driver):
@@ -156,7 +203,7 @@ class UIdriver(object):
     def Get_Object_ObjectRepository(self,strPageName,strObjectName):
 
         try:
-            oWB = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\Actitime objects.xls")
+            oWB = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\ObjectRepository.xls")
             oSheet = oWB.sheet_by_name("ObjectRepository")
             #c1 = self.GetxlColumnNumber(oSheet, "PageName")
             #c2 = self.GetxlColumnNumber(oSheet, "ObjectName")

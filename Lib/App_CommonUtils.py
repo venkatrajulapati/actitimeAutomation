@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import urllib.request
 from Lib.commonUtils import *
 import time
 import xlrd
@@ -60,7 +62,7 @@ class App_Common_utils(UIdriver):
 
     def Logout(self,odata,TCID,BSID):
         try:
-            self.Switch_window(self.browser)
+            self.browser=self.Switch_window(self.browser)
             self.ClickObject(self.browser,"Home","lnk_Logout")
 
             if self.App_Sync(self.browser,"Login","edt_User Name"):
