@@ -8,6 +8,10 @@ from Lib.App_CommonUtils import *
 import time
 import xlrd
 import sys
+import xlwt
+from xlwt import *
+from xlutils.copy import copy
+
 
 ######################################################### Test Suite Driver #######################################################################################
 
@@ -19,31 +23,46 @@ class TestSuiteDriver(App_Common_utils):
 
 # Connect to the Test test case repository
 
-oWb = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\TestSuite.xls")
-oTestsuite = oWb.sheet_by_name("TestSuite")
-oBusinessFlow = oWb.sheet_by_name("BusinessFlow")
-nooftcs = oTestsuite.nrows
+oRb = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\TestSuite.xls")
+oWb = copy(oRb)
+#Read only copy of Test Suite
+oRTestsuite = oRb.sheet_by_name("TestSuite")
+#Editable copy of Test suite
+oWTestsuite = oWb.get_sheet("TestSuite")
+#Business Flow sheet
+oBusinessFlow = oRb.sheet_by_name("BusinessFlow")
+nooftcs = oRTestsuite.nrows
 oui = UIdriver()
 obj=TestSuiteDriver()
+# font0 = Font()
+# font0.colour_index. "#0000FF"
+# style = XFStyle()
+# style.font = font0
 
 # Run the Test set
 
 for i in range(1,nooftcs):
-    TCID = oTestsuite.cell(i,0).value
-    TDID = oTestsuite.cell(i,1).value
-    TCName = oTestsuite.cell(i,2).value
+    TCID = oRTestsuite.cell(i,0).value
+    TDID = oRTestsuite.cell(i,1).value
+    TCName = oRTestsuite.cell(i,2).value
 
-    tobeexecute = oTestsuite.cell(i,3).value
+    tobeexecute = oRTestsuite.cell(i,3).value
     if str(tobeexecute).lower() == "y":
-        #exec ("obj = " + TCName + "()")
         print("Running the Test case : " + TCName)
+        #Create HTML Report
         f = obj.Create_HTML_Report(TCName)
         reppath = obj.Reportfile
         screenshotpath = obj.screenshotfolder
         reqrow = oui.GetxlRowNumberbytwocolvals(oBusinessFlow,"TC_ID",TCID,"TD_ID",TDID)
         noofsteps = oBusinessFlow.ncols
+        iPasscount = 0
+        stepcount = 0
+        #Get the Data sheet name
         DatasheetName = oBusinessFlow.cell(reqrow,2).value
+        if DatasheetName=="":
+            DatasheetName = oRTestsuite.cell(reqrow,2).value
         screenshotcount=0
+        #Execute the Business flow Keywords and update the HTML Report
         for j in range(3,noofsteps):
             Keyword = oBusinessFlow.cell(reqrow,j).value
             temp = Keyword
@@ -54,10 +73,13 @@ for i in range(1,nooftcs):
                 if eval ("obj." + Keyword):
                     print(temp + " Keyword Passed")
                     screenshotcount = screenshotcount + 1
+                    iPasscount = iPasscount + 1
+                    stepcount = stepcount + 1
                     obj.fn_HtmlReport_TestStep(f,screenshotpath,screenshotcount,"running Step : " + str(temp),str(temp) + " Should be Passed",str(temp) + " is Passed","PASS")
                 else:
                     print(temp+" Keyword Failed hence Quitting the current test execution")
                     obj.fn_HtmlReport_TestStep(f, screenshotpath, screenshotcount, "running Step : " + str(temp),str(temp) + " Should be Passed", str(temp) + " is Failed", "FAIL")
+                    stepcount = stepcount + 1
                     obj.browser.quit()
                     break
             elif Keyword == "end":
@@ -65,5 +87,12 @@ for i in range(1,nooftcs):
                 obj.browser.quit()
                 f.close()
                 break
+    # Update The Testcase wise status and Report path in the test suite
+    if iPasscount==stepcount:
+        oWTestsuite.write(i,4,"Pass")
+        oWTestsuite.write(i, 5, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
+    else:
+        oWTestsuite.write(i,4,"Fail")
+        oWTestsuite.write(i, 5, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
 
-
+    oWb.save(os.path.join(obj.Rootpath, "TestPlan\\TestSuite.xls"))
