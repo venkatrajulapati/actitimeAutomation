@@ -10,8 +10,8 @@ import sys
 
 class App_Common_utils(UIdriver):
 
-    def __init__(self):
-        super(App_Common_utils,self).__init__()
+    def __init__(self,rootpath):
+        super(App_Common_utils,self).__init__(rootpath)
 
     def Login_App(self,odata,TCID,BSID):
         #try:

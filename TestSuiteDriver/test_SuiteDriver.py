@@ -16,8 +16,8 @@ import logging
 ######################################################### Test Suite Driver #######################################################################################
 
 class SuiteDriver(App_Common_utils):
-    def __init__(self):
-        super(SuiteDriver,self).__init__()
+    def __init__(self,Rootpah):
+        super(SuiteDriver,self).__init__(Rootpah)
 
 ###################################################################################################################################################################
 def test_Runsuite():
@@ -36,8 +36,8 @@ def test_Runsuite():
     #Business Flow sheet
     oBusinessFlow = oRb.sheet_by_name("BusinessFlow")
     nooftcs = oRTestsuite.nrows
-    oui = UIdriver()
-    obj=SuiteDriver()
+    oui = UIdriver(Rootpath)
+    obj=SuiteDriver(Rootpath)
 
     # font0 = Font()
     # font0.colour_index. "#0000FF"
@@ -111,4 +111,4 @@ def test_Runsuite():
     oRb=None
     oWb=None
 
-#test_Runsuite()
+test_Runsuite()
