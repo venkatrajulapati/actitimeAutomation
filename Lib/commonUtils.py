@@ -15,7 +15,7 @@ from datetime import datetime
 import sys
 
 
-class UIdriver(object):
+class UIdriver():
 
     # Common utility functions for python selenium
     # Get the Browser driver
@@ -101,12 +101,12 @@ class UIdriver(object):
             print("Waiting for the Object " + strPageName + "." + strObjectName)
             try:
                 elem = self.Get_UIObject(driver,Locator,Locatorval)
-                if elem is not None:
+                if elem.is_displayed():
                     print(strPageName + "." + strObjectName + " object Found")
                     break
             except:
                 print("Please wait element Not Found")
-        if elem is not None:
+        if not elem is  None:
             return True
         else:
             return False
@@ -131,22 +131,27 @@ class UIdriver(object):
             print("unable to find the Locator : "+ Locatorvalue)
 
     def ClickObject(self,driver,pagename,objName):
-        objArr = []
-        objArr = self.Get_Object_ObjectRepository(pagename,objName)
-        objType = objArr.__getitem__(0)
-        Locator = objArr.__getitem__(1)
-        Locatorval = objArr.__getitem__(2)
-        elem = self.Get_UIObject(driver,Locator,Locatorval)
+        try:
 
-        if elem is not None:
-            # actions = webdriver.ActionChains(datetime)
-            # actions.move_to_element(elem)
-            # actions.click(elem)
-            # actions.perform()
-            elem.click()
-            print("Clicked on the Object : " + pagename + "." + objName)
-        else:
-            print("element not found please check the object description")
+            objArr = []
+            objArr = self.Get_Object_ObjectRepository(pagename,objName)
+            objType = objArr.__getitem__(0)
+            Locator = objArr.__getitem__(1)
+            Locatorval = objArr.__getitem__(2)
+            elem = self.Get_UIObject(driver,Locator,Locatorval)
+
+            if not elem is None:
+                # actions = webdriver.ActionChains(datetime)
+                # actions.move_to_element(elem)
+                # actions.click(elem)
+                # actions.perform()
+                elem.click()
+                print("Clicked on the Object : " + pagename + "." + objName)
+            else:
+                print("element not found please check the object description")
+        except:
+            print("some error occured while clicking object : " + pagename + "." + objName)
+
 
     def Switch_frame(self,driver,strPageName,strObjectName):
         objArr = self.Get_Object_ObjectRepository(strPageName, strObjectName)
@@ -207,7 +212,7 @@ class UIdriver(object):
     def Get_Object_ObjectRepository(self,strPageName,strObjectName):
 
         try:
-            oWB = xlrd.open_workbook("E:\\actitimeAutomation\\TestPlan\\ObjectRepository.xls")
+            oWB = xlrd.open_workbook(self.Rootpath + "\\ObjectRepository\\ObjectRepository.xls")
             oSheet = oWB.sheet_by_name("ObjectRepository")
             #c1 = self.GetxlColumnNumber(oSheet, "PageName")
             #c2 = self.GetxlColumnNumber(oSheet, "ObjectName")
@@ -234,35 +239,40 @@ class UIdriver(object):
          #   print("object not found please check the PageName and Object Name you are looking for")
 
     def SetFieldValue(self,driver,strPageName,strObjectName,fval):
-        objArr =[]
-        objArr= self.Get_Object_ObjectRepository(strPageName, strObjectName)
-        objType = objArr.__getitem__(0)
-        Locator = objArr.__getitem__(1)
-        Locatorval = objArr.__getitem__(2)
 
-        objType = str(objType)
-        if objType.lower() == "editfield":
-            elem = self.Get_UIObject(driver,Locator,Locatorval)
-            if elem.is_displayed:
-                elem.send_keys(fval)
-                print(strObjectName + "value is entered as " + fval)
-            else:
-                print(strObjectName+ " element not displayed")
-        elif objType.lower() == "dropdown":
-            elem = self.Get_UIObject(driver, Locator, Locatorval)
-            if elem.is_displayed:
-                selectoption = Select(elem)
-                selectoption.select_by_visible_text(fval)
-                print(strObjectName + "value is selected as " + fval)
-            else:
-                print(strObjectName + "element not displayed")
-        elif objType.lower() == "chkbox":
-            elem = self.Get_UIObject(driver, Locator, Locatorval)
-            if elem.is_displayed:
-                elem.click()
-                print(strObjectName + "check box is selected")
-            else:
-                print(strObjectName + "element not displayed")
+        try:
+
+            objArr =[]
+            objArr= self.Get_Object_ObjectRepository(strPageName, strObjectName)
+            objType = objArr.__getitem__(0)
+            Locator = objArr.__getitem__(1)
+            Locatorval = objArr.__getitem__(2)
+
+            objType = str(objType)
+            if objType.lower() == "editfield":
+                elem = self.Get_UIObject(driver,Locator,Locatorval)
+                if elem.is_displayed():
+                    elem.send_keys(fval)
+                    print(strObjectName + "value is entered as " + fval)
+                else:
+                    print(strObjectName+ " element not displayed")
+            elif objType.lower() == "dropdown":
+                elem = self.Get_UIObject(driver, Locator, Locatorval)
+                if elem.is_displayed:
+                    selectoption = Select(elem)
+                    selectoption.select_by_visible_text(fval)
+                    print(strObjectName + "value is selected as " + fval)
+                else:
+                    print(strObjectName + "element not displayed")
+            elif objType.lower() == "chkbox":
+                elem = self.Get_UIObject(driver, Locator, Locatorval)
+                if elem.is_displayed:
+                    elem.click()
+                    print(strObjectName + "check box is selected")
+                else:
+                    print(strObjectName + "element not displayed")
+        except:
+            print("failed to set the field value of the filed : " + strPageName + "." + strObjectName + objType)
 
     def Create_HTML_Report(self,TCName):
 

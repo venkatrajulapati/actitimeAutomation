@@ -11,19 +11,20 @@ import sys
 import xlwt
 from xlwt import *
 from xlutils.copy import copy
-
+import logging
 
 ######################################################### Test Suite Driver #######################################################################################
 
-class TestSuiteDriver(App_Common_utils):
+class SuiteDriver(App_Common_utils):
     def __init__(self):
-        super(TestSuiteDriver,self).__init__()
+        super(SuiteDriver,self).__init__()
 
 ###################################################################################################################################################################
 def test_Runsuite():
 
     # Connect to the Test test case repository
     #print(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
+    logger = logging.getLogger(__name__)
     Rootpath = os.getcwd()
     Rootpath = str(Rootpath).replace("TestSuiteDriver","")
     oRb = xlrd.open_workbook(Rootpath + "TestSuite\\TestSuite.xls")
@@ -36,7 +37,7 @@ def test_Runsuite():
     oBusinessFlow = oRb.sheet_by_name("BusinessFlow")
     nooftcs = oRTestsuite.nrows
     oui = UIdriver()
-    obj=TestSuiteDriver()
+    obj=SuiteDriver()
 
     # font0 = Font()
     # font0.colour_index. "#0000FF"
@@ -79,9 +80,11 @@ def test_Runsuite():
                         screenshotcount = screenshotcount + 1
                         iPasscount = iPasscount + 1
                         stepcount = stepcount + 1
+                        logger.info("pass", temp + " Keyword passed")
                         obj.fn_HtmlReport_TestStep(f,screenshotpath,screenshotcount,"running Step : " + str(temp),str(temp) + " Should be Passed",str(temp) + " is Passed","PASS")
                     else:
                         print(temp+" Keyword Failed hence Quitting the current test execution")
+                        logger.info("fail",temp+" Keyword Failed hence Quitting the current test execution")
                         obj.fn_HtmlReport_TestStep(f, screenshotpath, screenshotcount, "running Step : " + str(temp),str(temp) + " Should be Passed", str(temp) + " is Failed", "FAIL")
                         stepcount = stepcount + 1
                         obj.browser.quit()
