@@ -12,6 +12,7 @@ import xlwt
 from xlwt import *
 from xlutils.copy import copy
 import logging
+from datetime import datetime
 
 ######################################################### Test Suite Driver #######################################################################################
 
@@ -53,6 +54,7 @@ def test_Runsuite():
 
         tobeexecute = oRTestsuite.cell(i,3).value
         if str(tobeexecute).lower() == "y":
+            dt1=datetime.now()
             print("Running the Test case : " + TCName)
             #Create HTML Report
             f = obj.Create_HTML_Report(TCName)
@@ -95,12 +97,22 @@ def test_Runsuite():
                     f.close()
                     break
             # Update The Testcase wise status and Report path in the test suite(Detailed summary Report
+            dt2 = datetime.now()
+            d1 = datetime(dt1.year, dt1.month, dt1.day, dt1.hour, dt1.minute, dt1.second, dt1.microsecond)
+            d2 = datetime(dt2.year, dt2.month, dt2.day, dt2.hour, dt2.minute, dt2.second, dt2.microsecond)
+            diff = d2 - d1
             if iPasscount==stepcount:
                 oWTestsuite.write(i,4,"Pass")
-                oWTestsuite.write(i, 5, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
+                oWTestsuite.write(i, 5, str(dt1))
+                oWTestsuite.write(i, 6, str(dt2))
+                oWTestsuite.write(i, 7, str(diff))
+                oWTestsuite.write(i, 8, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
             else:
                 oWTestsuite.write(i,4,"Fail")
-                oWTestsuite.write(i, 5, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
+                oWTestsuite.write(i, 5, str(dt1))
+                oWTestsuite.write(i, 6, str(dt2))
+                oWTestsuite.write(i, 7, str(diff))
+                oWTestsuite.write(i, 8, xlwt.Formula('HYPERLINK("%s";"Clickto view report")' % reppath))
         #Create Detailed summary Report
         oWb.save(os.path.join(obj.Rootpath, "TestSuite\\DetailedSummaryReport.xls"))
     #Clean up
@@ -111,4 +123,4 @@ def test_Runsuite():
     oRb=None
     oWb=None
 
-test_Runsuite()
+#test_Runsuite()

@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f8e9aa6-dced-413f-8f80-e7810ba3fa4a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestPlan/ObjectRepository.xls" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestPlan/TestSuite.xls" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestPlan/TestSuiteDriver.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TestPlan/__init__.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestSuite/DetailedSummaryReport.xls" afterPath="$PROJECT_DIR$/TestSuite/DetailedSummaryReport.xls" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestSuite/TestSuite.xls" afterPath="$PROJECT_DIR$/TestSuite/TestSuite.xls" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lib/App_CommonUtils.py" afterPath="$PROJECT_DIR$/Lib/App_CommonUtils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lib/commonUtils.py" afterPath="$PROJECT_DIR$/Lib/commonUtils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py" afterPath="$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.txt" afterPath="$PROJECT_DIR$/test.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +24,8 @@
       <file leaf-file-name="commonUtils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lib/commonUtils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+            <state relative-caret-position="2057">
+              <caret line="135" column="8" lean-forward="false" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -40,11 +36,21 @@
       <file leaf-file-name="test_SuiteDriver.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="442">
+              <caret line="125" column="1" lean-forward="false" selection-start-line="125" selection-start-column="1" selection-end-line="125" selection-end-column="1" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,8 +68,8 @@
       <file leaf-file-name="App_CommonUtils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lib/App_CommonUtils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="38" column="40" lean-forward="false" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
+            <state relative-caret-position="1054">
+              <caret line="70" column="17" lean-forward="false" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -100,9 +106,10 @@
         <option value="$PROJECT_DIR$/TestPlan/TestSuiteDriver.py" />
         <option value="$PROJECT_DIR$/TestSuiteDriver/TestSuiteDriver.py" />
         <option value="$PROJECT_DIR$/TestSuiteDriver/test_TestSuiteDriver.py" />
-        <option value="$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py" />
         <option value="$PROJECT_DIR$/Lib/App_CommonUtils.py" />
         <option value="$PROJECT_DIR$/Lib/commonUtils.py" />
+        <option value="$PROJECT_DIR$/test.txt" />
+        <option value="$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py" />
       </list>
     </option>
   </component>
@@ -129,6 +136,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -151,13 +159,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ObjectRepository" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="actitimeAutomation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="actitimeAutomation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,24 +384,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2017.12.31 at 17h 41m 59s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2017.12.31 at 17h 42m 10s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2017.12.31 at 17h 43m 09s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2017.12.31 at 17h 50m 29s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.01 at 13h 24m 54s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.01 at 15h 24m 01s.xml">
-      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.01 at 15h 24m 40s.xml">
       <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
     </history-entry>
@@ -391,6 +394,24 @@
       <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.01 at 15h 26m 45s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.02 at 22h 30m 38s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.10 at 18h 24m 31s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.22 at 19h 20m 38s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.22 at 19h 21m 20s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.22 at 19h 23m 38s.xml">
+      <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_SuiteDriver_py - 2018.01.22 at 19h 24m 54s.xml">
       <configuration name="Unittests in test_SuiteDriver.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -407,7 +428,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36838123" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39863843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3398693" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -515,7 +536,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TestPlan/Tc1.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5236">
@@ -690,30 +710,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/App_CommonUtils.py">
+    <entry file="file://$PROJECT_DIR$/Lib/commonUtils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="38" column="40" lean-forward="false" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
+        <state relative-caret-position="2057">
+          <caret line="135" column="8" lean-forward="false" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/commonUtils.py">
+    <entry file="file://$PROJECT_DIR$/Lib/App_CommonUtils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+        <state relative-caret-position="1054">
+          <caret line="70" column="17" lean-forward="false" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TestSuiteDriver/test_SuiteDriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="442">
+          <caret line="125" column="1" lean-forward="false" selection-start-line="125" selection-start-column="1" selection-end-line="125" selection-end-column="1" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
